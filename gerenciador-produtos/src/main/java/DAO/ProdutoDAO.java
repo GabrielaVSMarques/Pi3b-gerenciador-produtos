@@ -26,22 +26,22 @@ public class ProdutoDAO {
     
     
     
-        public static boolean salvar(Produto p) {
+    public static boolean salvar(Produto p) {
 
         boolean retorno = false;
 
         try {
             Class.forName(DRIVER);
-            url = "jdbc:mysql://localhost:3306/" + "PRODUTOBD";
+            url = "jdbc:mysql://localhost:3307/" + "PRODUTOBD";
             conexao = DriverManager.getConnection(url, "root", "");
-            PreparedStatement comando = conexao.prepareStatement("INSERT INTO PRODUTO(nomeProduto,descricaoProduto,precoCompra,precoVenda,quantidade,categoria,dataCadastro)VALUES(?, ?, ?, ?, ?, ?, ?);");
-            comando.setString(1, p.getNomeProduto());
-            comando.setString(2, p.getDescricaoProduto());
-            comando.setDouble(3, p.getPrecoCompra());
-            comando.setDouble(4, p.getPrecoVenda());
+            PreparedStatement comando = conexao.prepareStatement("INSERT INTO PRODUTO(NOME,DESCRICAO,PRECO_COMPRA,PRECO_VENDA,QUANTIDADE,DISPONIVEL,DT_CADASTRO)VALUES(?, ?, ?, ?, ?, ?,?);");
+            comando.setString(1, p.getNome());
+            comando.setString(2, p.getDescricao());
+            comando.setDouble(3, p.getPreco_compra());
+            comando.setDouble(4, p.getPreco_venda());
             comando.setInt(5,p.getQuantidade());
-            comando.setString(6, p.getCategoria());
-            comando.setString(7, p.getdataCadastro());
+            comando.setBoolean(6, p.getDisponivel());
+            comando.setString(7, p.getDt_cadastro());
 
             int linhasAfetadas = comando.executeUpdate();
             if (linhasAfetadas > 0) {
@@ -63,6 +63,164 @@ public class ProdutoDAO {
         }
 
         return retorno;
+    }    
+        
+    public static boolean atualizar(Produto p) {
+
+        boolean retorno = false;
+
+        try {
+            Class.forName(DRIVER);
+            url = "jdbc:mysql://localhost:3307/" + "PRODUTOBD";
+            conexao = DriverManager.getConnection(url, "root", "");
+            PreparedStatement comando = conexao.prepareStatement("UPDATE PRODUTO SET NOME = ?, DESCRICAO = ?, PRECO_COMPRA = ?, PRECO_VENDA = ?, QUANTIDADE = ?, DISPONIVEL = ?, DT_CADASTRO = ? WHERE ID = ?;");
+            comando.setString(1, p.getNome());
+            comando.setString(2, p.getDescricao());
+            comando.setDouble(3, p.getPreco_compra());
+            comando.setDouble(4, p.getPreco_venda());
+            comando.setInt(5, p.getQuantidade());
+            comando.setBoolean(6, p.getDisponivel());
+            comando.setString(7, p.getDt_cadastro());
+            comando.setInt(8, p.getId());
+
+            int linhasAfetadas = comando.executeUpdate();
+            if (linhasAfetadas > 0) {
+                retorno = true;
+            } else {
+                retorno = false;
+            }
+
+        } catch (ClassNotFoundException e) {
+            retorno = true;
+        } catch (SQLException ex) {
+            retorno = false;
+        } finally {
+            try {
+                conexao.close();
+            } catch (SQLException ex) {
+                retorno = false;
+            }
+        }
+
+        return retorno;
+
+    }  
+     
+    public static boolean excluir(int ID) {
+
+
+        boolean retorno = false;
+
+        try {
+            Class.forName(DRIVER);
+            url = "jdbc:mysql://localhost:3307/" + "PRODUTOBD";
+            conexao = DriverManager.getConnection(url, "root", "");
+            PreparedStatement comando = conexao.prepareStatement("DELETE FROM PRODUTO WHERE ID = ?");
+            comando.setInt(1, ID);
+
+            int linhasAfetadas = comando.executeUpdate();
+            if (linhasAfetadas > 0) {
+                retorno = true;
+            } else {
+                retorno = false;
+            }
+
+        } catch (ClassNotFoundException ex) {
+            retorno = true;
+        } catch (SQLException ex) {
+            retorno = false;
+        } finally {
+            try {
+                conexao.close();
+            } catch (SQLException ex) {
+                retorno = false;
+            }
+        }
+
+        return retorno;
+
+    } 
+    
+    public static ArrayList<Produto> pesquisar(Produto p) throws SQLException {
+
+        ArrayList<Produto> listaProdutos = new ArrayList<Produto>();
+
+        try {
+
+            Class.forName(DRIVER);
+            url = "jdbc:mysql://localhost:3307/" + "PRODUTOBD";
+            conexao = DriverManager.getConnection(url, "root", "");
+            PreparedStatement comando = conexao.prepareStatement("SELECT * FROM PRODUTO WHERE ID = ?;");
+            comando.setInt(1, p.getId());
+
+
+            ResultSet rs = comando.executeQuery();
+            
+            while (rs.next()) {
+                Produto produto = new Produto();
+                produto.setId(rs.getInt("ID"));
+                produto.setNome(rs.getString("NOME"));
+                produto.setDescricao(rs.getString("DESCRICAO"));
+                produto.setPreco_compra(rs.getDouble("PRECO_COMPRA"));
+                produto.setPreco_venda(rs.getDouble("PRECO_VENDA"));
+                produto.setQuantidade(rs.getInt("QUANTIDADE"));
+                produto.setDisponivel(rs.getBoolean("DISPONIVEL"));
+                produto.setDt_cadastro(rs.getString("DT_CADASTRO"));
+                listaProdutos.add(produto);
+            }
+            
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            listaProdutos = null;
+        } finally {
+            try {
+                conexao.close();
+            } catch (SQLException ex) {
+                listaProdutos = null;
+            }
+        }
+
+        return listaProdutos;
     }
+    
+    public static ArrayList<Produto> getProdutos() {
+        ArrayList<Produto> listaProdutos = new ArrayList<Produto>();
+
+        try {
+
+            Class.forName(DRIVER);
+            url = "jdbc:mysql://localhost:3307/" + "PRODUTOBD";
+            conexao = DriverManager.getConnection(url, "root", "");
+            Statement comando = conexao.createStatement();
+            ResultSet rs = comando.executeQuery("SELECT * FROM PRODUTO;");
+            while (rs.next()) {
+                Produto produto = new Produto();
+                produto.setId(rs.getInt("ID"));
+                produto.setNome(rs.getString("NOME"));
+                produto.setDescricao(rs.getString("DESCRICAO"));
+                produto.setPreco_compra(rs.getDouble("PRECO_COMPRA"));
+                produto.setPreco_venda(rs.getDouble("PRECO_VENDA"));
+                produto.setQuantidade(rs.getInt("QUANTIDADE"));
+                produto.setDisponivel(rs.getBoolean("DISPONIVEL"));
+                produto.setDt_cadastro(rs.getString("DT_CADASTRO"));
+                listaProdutos.add(produto);
+            }
+
+        } catch (ClassNotFoundException ex) {
+            listaProdutos = null;
+        } catch (SQLException ex) {
+            listaProdutos = null;
+        } finally {
+            try {
+                conexao.close();
+            } catch (SQLException ex) {
+                listaProdutos = null;
+            }
+        }
+
+        return listaProdutos;
+    }
+
+     
     
 }

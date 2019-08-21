@@ -6,83 +6,80 @@ package Model;
  */
 public class Produto {
     
-    private int idProduto;
-    private String nomeProduto;
-    private String descricaoProduto;
-    private double precoCompra;
-    private double precoVenda; 
+    private int id;
+    private String nome;
+    private String descricao;
+    private double preco_compra;
+    private double preco_venda; 
     private int quantidade;
     private boolean disponivel;
-    private String categoria;
-    private String dataCadastro;
+    private String dt_cadastro;
 
     public Produto(){
     }
     
-    public Produto(int idProduto, String nomeProduto, String descricaoProduto, double precoCompra, double precoVenda, int quantidade, boolean disponivel, String categoria, String dataCadastro) {
-        this.idProduto = idProduto;
-        this.nomeProduto = nomeProduto;
-        this.descricaoProduto = descricaoProduto;
-        this.precoCompra = precoCompra;
-        this.precoVenda = precoVenda;
+    public Produto(int id, String nome, String descricao, double preco_compra, double preco_venda, int quantidade, boolean disponivel, String dt_cadastro) {
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.preco_compra = preco_compra;
+        this.preco_venda = preco_venda;
         this.quantidade = quantidade;
         this.disponivel = disponivel;
-        this.categoria = categoria;
-        this.dataCadastro = dataCadastro;
+        this.dt_cadastro = dt_cadastro;
         
     }
     
-    public Produto( String nomeProduto, String descricaoProduto, double precoCompra, double precoVenda, int quantidade, boolean disponivel, String categoria, String dataCadastro) {
+    public Produto( String nome, String descricao, double preco_compra, double preco_venda, int quantidade, boolean disponivel, String dt_cadastro) {
     
-        this.nomeProduto = nomeProduto;
-        this.descricaoProduto = descricaoProduto;
-        this.precoCompra = precoCompra;
-        this.precoVenda = precoVenda;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.preco_compra = preco_compra;
+        this.preco_venda = preco_venda;
         this.quantidade = quantidade;
         this.disponivel = disponivel;
-        this.categoria = categoria;
-        this.dataCadastro = dataCadastro;
+        this.dt_cadastro = dt_cadastro;
         
     }
 
-    public int getIdProduto() {
-        return idProduto;
+    public int getId() {
+        return id;
     }
 
-    public void setIdProduto(int idProduto) {
-        this.idProduto = idProduto;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getNomeProduto() {
-        return nomeProduto;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNomeProduto(String nomeProduto) {
-        this.nomeProduto = nomeProduto;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public String getDescricaoProduto() {
-        return descricaoProduto;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setDescricaoProduto(String descricaoProduto) {
-        this.descricaoProduto = descricaoProduto;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public double getPrecoCompra() {
-        return precoCompra;
+    public double getPreco_compra() {
+        return preco_compra;
     }
 
-    public void setPrecoCompra(double precoCompra) {
-        this.precoCompra = precoCompra;
+    public void setPreco_compra(double preco_compra) {
+        this.preco_compra = preco_compra;
     }
 
-    public double getPrecoVenda() {
-        return precoVenda;
+    public double getPreco_venda() {
+        return preco_venda;
     }
 
-    public void setPrecoVenda(double precoVenda) {
-        this.precoVenda = precoVenda;
+    public void setPreco_venda(double preco_venda) {
+        this.preco_venda = preco_venda;
     }
 
     public int getQuantidade() {
@@ -101,21 +98,14 @@ public class Produto {
         this.disponivel = disponivel;
     }
 
-    public String getCategoria() {
-        return categoria;
+    public String getDt_cadastro() {
+        return dt_cadastro;
     }
 
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
+    public void setDt_cadastro(String dt_cadastro) {
+        this.dt_cadastro = dt_cadastro;
     }
     
-    public String getdataCadastro() {
-        return dataCadastro;
-    }
 
-    public void setdataCadastro(String dataCadastro) {
-        this.dataCadastro = dataCadastro;
-    }
-    
-    
+       
 }

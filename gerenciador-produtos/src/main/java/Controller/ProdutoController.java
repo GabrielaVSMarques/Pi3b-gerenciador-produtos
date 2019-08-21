@@ -11,9 +11,9 @@ import java.util.ArrayList;
  */
 public class ProdutoController {
     
-    public static boolean Salvar(String nomeProduto, String descricaoProduto, double precoCompra, double precoVenda, int quantidade, boolean disponivel, String categoria, String dataCadastro) {
+    public static boolean Salvar(String nome, String descricao, double preco_compra, double preco_venda, int quantidade, boolean disponivel, String dt_cadastro) {
 
-        Produto p = new Produto(nomeProduto, descricaoProduto, precoCompra, precoVenda,quantidade,disponivel,categoria,dataCadastro);
+        Produto p = new Produto(nome, descricao, preco_compra, preco_venda,quantidade,disponivel,dt_cadastro);
         return ProdutoDAO.salvar(p);
     }
     
