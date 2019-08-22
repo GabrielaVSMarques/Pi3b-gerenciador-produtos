@@ -138,7 +138,6 @@ public class CadastrarProduto extends javax.swing.JFrame {
         setTitle("Cadastrar Produto");
 
         btnSalvarProduto.setFont(new java.awt.Font("Verdana", 1, 12)); // NOI18N
-        btnSalvarProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/save.png"))); // NOI18N
         btnSalvarProduto.setText("Salvar");
         btnSalvarProduto.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnSalvarProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -148,7 +147,6 @@ public class CadastrarProduto extends javax.swing.JFrame {
         });
 
         btnLimparProduto.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnLimparProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/limpar(1).png"))); // NOI18N
         btnLimparProduto.setText("Limpar");
         btnLimparProduto.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnLimparProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -304,27 +302,26 @@ public class CadastrarProduto extends javax.swing.JFrame {
                     .addComponent(lblDescricao)
                     .addComponent(txtDescricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlCadastrarPrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblQuantidade)
+                .addGroup(pnlCadastrarPrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlCadastrarPrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblCategoria)
-                        .addComponent(cboCategoriaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cboCategoriaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlCadastrarPrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblQuantidade)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addGroup(pnlCadastrarPrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblValorUnitario)
-                    .addComponent(txtValorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlCadastrarPrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlCadastrarPrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(lblValorUnitario1)
                         .addComponent(txtValorVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(chkDisponivel)))
+                        .addComponent(chkDisponivel))
+                    .addGroup(pnlCadastrarPrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblValorUnitario)
+                        .addComponent(txtValorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
-        lblValorUnitario1.getAccessibleContext().setAccessibleName("Valor de venda");
-
         btnCancelarProduto1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnCancelarProduto1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/sair.png"))); // NOI18N
         btnCancelarProduto1.setText("Cancelar");
         btnCancelarProduto1.setHideActionText(true);
         btnCancelarProduto1.addActionListener(new java.awt.event.ActionListener() {
