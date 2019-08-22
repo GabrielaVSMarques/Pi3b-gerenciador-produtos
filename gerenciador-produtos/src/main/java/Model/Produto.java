@@ -1,5 +1,7 @@
 package Model;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author gabrielavsmarques
@@ -13,12 +15,12 @@ public class Produto {
     private double preco_venda; 
     private int quantidade;
     private boolean disponivel;
-    private String dt_cadastro;
+    private Timestamp dt_cadastro;
 
     public Produto(){
     }
     
-    public Produto(int id, String nome, String descricao, double preco_compra, double preco_venda, int quantidade, boolean disponivel, String dt_cadastro) {
+    public Produto(int id, String nome, String descricao, double preco_compra, double preco_venda, int quantidade, boolean disponivel) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -26,11 +28,10 @@ public class Produto {
         this.preco_venda = preco_venda;
         this.quantidade = quantidade;
         this.disponivel = disponivel;
-        this.dt_cadastro = dt_cadastro;
         
     }
     
-    public Produto( String nome, String descricao, double preco_compra, double preco_venda, int quantidade, boolean disponivel, String dt_cadastro) {
+    public Produto( String nome, String descricao, double preco_compra, double preco_venda, int quantidade, boolean disponivel, Timestamp dt_cadastro) {
     
         this.nome = nome;
         this.descricao = descricao;
@@ -98,11 +99,11 @@ public class Produto {
         this.disponivel = disponivel;
     }
 
-    public String getDt_cadastro() {
+    public Timestamp getDt_cadastro() {
         return dt_cadastro;
     }
 
-    public void setDt_cadastro(String dt_cadastro) {
+    public void setDt_cadastro(Timestamp dt_cadastro) {
         this.dt_cadastro = dt_cadastro;
     }
     

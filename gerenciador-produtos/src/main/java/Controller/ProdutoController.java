@@ -3,6 +3,8 @@ package Controller;
 import DAO.ProdutoDAO;
 import Model.Produto;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
@@ -11,15 +13,15 @@ import java.util.ArrayList;
  */
 public class ProdutoController {
     
-    public static boolean Salvar(String nome, String descricao, double preco_compra, double preco_venda, int quantidade, boolean disponivel, String dt_cadastro) {
+    public static boolean Salvar(String nome, String descricao, double preco_compra, double preco_venda, int quantidade, boolean disponivel) {
 
-        Produto p = new Produto(nome, descricao, preco_compra, preco_venda,quantidade,disponivel,dt_cadastro);
+        Produto p = new Produto(nome, descricao, preco_compra, preco_venda,quantidade,disponivel,new Timestamp(System.currentTimeMillis()));
         return ProdutoDAO.salvar(p);
     }
     
-    /*public static boolean Atualizar(String nomeProduto, String descricaoProduto, double precoCompra, double precoVenda, int quantidade, boolean disponivel, String categoria, String dataCadastro) {
+    public static boolean Atualizar(int id ,String nomeProduto, String descricaoProduto, double precoCompra, double precoVenda, int quantidade, boolean disponivel) {
 
-        Produto p = new Produto(nomeProduto, descricaoProduto, precoCompra, precoVenda, quantidade,disponivel,categoria);
+        Produto p = new Produto(id, nomeProduto, descricaoProduto, precoCompra, precoVenda, quantidade,disponivel);
         return ProdutoDAO.atualizar(p);
     }
     
@@ -31,27 +33,28 @@ public class ProdutoController {
     public static ArrayList<String[]> Pesquisar(int idProduto, String nomeProduto, String descricaoProduto, double precoCompra, double precoVenda, int quantidade, boolean disponivel, String categoria) throws SQLException {
         
         Produto p  = new Produto();
-        p.setIdProduto(idProduto);
-        p.setNomeProduto(nomeProduto);
-        p.setDescricaoProduto(descricaoProduto);
-        p.setPrecoCompra(precoCompra);
-        p.setPrecoVenda(precoVenda);
+        p.setId(idProduto);
+        p.setNome(nomeProduto);
+        p.setDescricao(descricaoProduto);
+        p.setPreco_compra(precoCompra);
+        p.setPreco_venda(precoVenda);
         p.setQuantidade(quantidade);
         p.setDisponivel(disponivel);
-        p.setCategoria(categoria);
+        //p.set(categoria);
         
         ArrayList<Produto> retorno = ProdutoDAO.pesquisar(p);
         
         ArrayList<String[]> listaProdutos = new ArrayList<>();
 
         for (int i = 0; i < retorno.size(); i++) {
-            listaProdutos.add(new String[]{String.valueOf(retorno.get(i).getIdProduto()),
-                retorno.get(i).getNomeProduto(),
-                retorno.get(i).getDescricaoProduto(),
-                String.valueOf(retorno.get(i).getPrecoCompra()),
-                String.valueOf(retorno.get(i).getPrecoVenda()),
+            listaProdutos.add(new String[]{String.valueOf(retorno.get(i).getId()),
+                retorno.get(i).getNome(),
+                retorno.get(i).getDescricao(),
+                String.valueOf(retorno.get(i).getPreco_compra()),
+                String.valueOf(retorno.get(i).getPreco_venda()),
                 String.valueOf(retorno.get(i).getQuantidade()),
-                retorno.get(i).getCategoria()});
+                //retorno.get(i).getCategoria()
+            });
         }
         return listaProdutos;
 
@@ -62,16 +65,16 @@ public class ProdutoController {
         ArrayList<String[]> listaProdutos = new ArrayList<>();
 
         for (int i = 0; i < p.size(); i++) {
-            listaProdutos.add(new String[]{String.valueOf(p.get(i).getCodigoProduto()),
-                p.get(i).getDescricaoProduto(),
-                String.valueOf(p.get(i).getQuantidadeProduto()),
-                String.valueOf(p.get(i).getValorUni()),
-                String.valueOf(p.get(i).getCategoriaProduto())});
+            listaProdutos.add(new String[]{String.valueOf(p.get(i).getId()),
+                p.get(i).getDescricao(),
+                String.valueOf(p.get(i).getQuantidade()),
+                String.valueOf(p.get(i).getPreco_venda()),
+                //String.valueOf(p.get(i).getCategoriaProduto())
+            });
         }
 
         return listaProdutos;
 
     }
-*/
     
 }

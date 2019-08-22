@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 
 /**
@@ -16,24 +17,29 @@ import java.util.ArrayList;
  */
 public class ProdutoDAO {
     
-    private static final String DRIVER = "com.mysql.jdbc.Driver";
+    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String SERVIDOR = "localhost";
     private static final String BASEDADOS = "PRODUTOBD";
+    private static final String PORTA = "3306";
     private static final String LOGIN = "root";
-    private static final String SENHA = "";
+    private static final String SENHA = "root";
     private static String url = "";
     private static Connection conexao;
     
     
+    private static Connection conectaBanco() throws SQLException{
+
+            url = "jdbc:mysql://"+SERVIDOR+":"+PORTA+ "/PRODUTOBD?useTimezone=true&serverTimezone=UTC";
+            //System.out.print(url);
+            return DriverManager.getConnection(url, LOGIN, SENHA);
+    }
     
     public static boolean salvar(Produto p) {
 
         boolean retorno = false;
 
         try {
-            Class.forName(DRIVER);
-            url = "jdbc:mysql://localhost:3307/" + "PRODUTOBD";
-            conexao = DriverManager.getConnection(url, "root", "");
+            conexao = conectaBanco();
             PreparedStatement comando = conexao.prepareStatement("INSERT INTO PRODUTO(NOME,DESCRICAO,PRECO_COMPRA,PRECO_VENDA,QUANTIDADE,DISPONIVEL,DT_CADASTRO)VALUES(?, ?, ?, ?, ?, ?,?);");
             comando.setString(1, p.getNome());
             comando.setString(2, p.getDescricao());
@@ -41,7 +47,7 @@ public class ProdutoDAO {
             comando.setDouble(4, p.getPreco_venda());
             comando.setInt(5,p.getQuantidade());
             comando.setBoolean(6, p.getDisponivel());
-            comando.setString(7, p.getDt_cadastro());
+            comando.setTimestamp(7, p.getDt_cadastro());
 
             int linhasAfetadas = comando.executeUpdate();
             if (linhasAfetadas > 0) {
@@ -50,14 +56,14 @@ public class ProdutoDAO {
                 retorno = false;
             }
 
-        } catch (ClassNotFoundException ex) {
-            retorno = false;
         } catch (SQLException ex) {
+            System.out.print(ex.getMessage());
             retorno = false;
         } finally {
             try {
                 conexao.close();
             } catch (SQLException ex) {
+            System.out.print(ex.getMessage());
                 retorno = false;
             }
         }
@@ -71,8 +77,7 @@ public class ProdutoDAO {
 
         try {
             Class.forName(DRIVER);
-            url = "jdbc:mysql://localhost:3307/" + "PRODUTOBD";
-            conexao = DriverManager.getConnection(url, "root", "");
+            conexao = conectaBanco();
             PreparedStatement comando = conexao.prepareStatement("UPDATE PRODUTO SET NOME = ?, DESCRICAO = ?, PRECO_COMPRA = ?, PRECO_VENDA = ?, QUANTIDADE = ?, DISPONIVEL = ?, DT_CADASTRO = ? WHERE ID = ?;");
             comando.setString(1, p.getNome());
             comando.setString(2, p.getDescricao());
@@ -80,7 +85,7 @@ public class ProdutoDAO {
             comando.setDouble(4, p.getPreco_venda());
             comando.setInt(5, p.getQuantidade());
             comando.setBoolean(6, p.getDisponivel());
-            comando.setString(7, p.getDt_cadastro());
+            comando.setTimestamp(7, p.getDt_cadastro());
             comando.setInt(8, p.getId());
 
             int linhasAfetadas = comando.executeUpdate();
@@ -113,8 +118,7 @@ public class ProdutoDAO {
 
         try {
             Class.forName(DRIVER);
-            url = "jdbc:mysql://localhost:3307/" + "PRODUTOBD";
-            conexao = DriverManager.getConnection(url, "root", "");
+            conexao = conectaBanco();
             PreparedStatement comando = conexao.prepareStatement("DELETE FROM PRODUTO WHERE ID = ?");
             comando.setInt(1, ID);
 
@@ -148,8 +152,7 @@ public class ProdutoDAO {
         try {
 
             Class.forName(DRIVER);
-            url = "jdbc:mysql://localhost:3307/" + "PRODUTOBD";
-            conexao = DriverManager.getConnection(url, "root", "");
+            conexao = conectaBanco();
             PreparedStatement comando = conexao.prepareStatement("SELECT * FROM PRODUTO WHERE ID = ?;");
             comando.setInt(1, p.getId());
 
@@ -165,7 +168,7 @@ public class ProdutoDAO {
                 produto.setPreco_venda(rs.getDouble("PRECO_VENDA"));
                 produto.setQuantidade(rs.getInt("QUANTIDADE"));
                 produto.setDisponivel(rs.getBoolean("DISPONIVEL"));
-                produto.setDt_cadastro(rs.getString("DT_CADASTRO"));
+                produto.setDt_cadastro(rs.getTimestamp("DT_CADASTRO"));
                 listaProdutos.add(produto);
             }
             
@@ -189,8 +192,7 @@ public class ProdutoDAO {
         try {
 
             Class.forName(DRIVER);
-            url = "jdbc:mysql://localhost:3307/" + "PRODUTOBD";
-            conexao = DriverManager.getConnection(url, "root", "");
+            conexao = conectaBanco();
             Statement comando = conexao.createStatement();
             ResultSet rs = comando.executeQuery("SELECT * FROM PRODUTO;");
             while (rs.next()) {
@@ -202,18 +204,20 @@ public class ProdutoDAO {
                 produto.setPreco_venda(rs.getDouble("PRECO_VENDA"));
                 produto.setQuantidade(rs.getInt("QUANTIDADE"));
                 produto.setDisponivel(rs.getBoolean("DISPONIVEL"));
-                produto.setDt_cadastro(rs.getString("DT_CADASTRO"));
+                produto.setDt_cadastro(rs.getTimestamp("DT_CADASTRO"));
                 listaProdutos.add(produto);
             }
 
         } catch (ClassNotFoundException ex) {
             listaProdutos = null;
         } catch (SQLException ex) {
+            System.out.print(ex.getMessage());
             listaProdutos = null;
         } finally {
             try {
                 conexao.close();
             } catch (SQLException ex) {
+            System.out.print(ex.getMessage());
                 listaProdutos = null;
             }
         }

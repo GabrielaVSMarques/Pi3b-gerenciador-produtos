@@ -6,7 +6,7 @@
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
      <organization>
-        <name> Senac TADS PI3B - JUNTOS E SHALLOW AGORA </name>
+        <name> Senac TADS PI3B - JUNTOS E SHALLOW NOW </name>
      </organization >
     <developers>
         <developer>
@@ -27,7 +27,7 @@
         </developer>
         <developer>
            <id>infinityover</id>
-           <name>Paulo Bolfi</name>
+           <name>Paulo Belfi</name>
         </developer>
         <developer>
            <id>DeboraGomes2708</id>
