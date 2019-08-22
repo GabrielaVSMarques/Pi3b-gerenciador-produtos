@@ -24,6 +24,15 @@ public class CadastrarProduto extends javax.swing.JFrame {
         DesabilitarFormulario();
     }
     
+    
+    public CadastrarProduto(int codigo) {
+        initComponents();
+        
+        
+        this.setLocationRelativeTo(null);
+        DesabilitarFormulario();
+    }
+    
     public void LoadTable(){
         
         //Peço ao controller resgatar os clientes do banco de dados
