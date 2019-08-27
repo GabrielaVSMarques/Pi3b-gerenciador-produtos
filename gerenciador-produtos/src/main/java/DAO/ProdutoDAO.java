@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 
 /**
@@ -70,7 +69,7 @@ public class ProdutoDAO {
 
         return retorno;
     }    
-        
+    
     public static boolean atualizar(Produto p) {
 
         boolean retorno = false;
@@ -223,6 +222,10 @@ public class ProdutoDAO {
         }
 
         return listaProdutos;
+    }
+
+    public static void pesquisar(String nome) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
      

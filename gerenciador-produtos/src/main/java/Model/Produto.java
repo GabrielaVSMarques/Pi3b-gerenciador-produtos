@@ -16,11 +16,12 @@ public class Produto {
     private int quantidade;
     private boolean disponivel;
     private Timestamp dt_cadastro;
+    private int idCategoria;
 
     public Produto(){
     }
     
-    public Produto(int id, String nome, String descricao, double preco_compra, double preco_venda, int quantidade, boolean disponivel) {
+    public Produto(int id, String nome, String descricao, double preco_compra, double preco_venda, int quantidade, int idCategoria, boolean disponivel) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -28,10 +29,12 @@ public class Produto {
         this.preco_venda = preco_venda;
         this.quantidade = quantidade;
         this.disponivel = disponivel;
+        this.idCategoria = idCategoria;
+        
         
     }
     
-    public Produto( String nome, String descricao, double preco_compra, double preco_venda, int quantidade, boolean disponivel, Timestamp dt_cadastro) {
+    public Produto( String nome, String descricao, double preco_compra, double preco_venda, int quantidade, int idCategoria, boolean disponivel, Timestamp dt_cadastro) {
     
         this.nome = nome;
         this.descricao = descricao;
@@ -40,6 +43,7 @@ public class Produto {
         this.quantidade = quantidade;
         this.disponivel = disponivel;
         this.dt_cadastro = dt_cadastro;
+        this.idCategoria = idCategoria;
         
     }
 
@@ -75,8 +79,20 @@ public class Produto {
         this.preco_compra = preco_compra;
     }
 
+    public boolean isDisponivel() {
+        return disponivel;
+    }
+
+    public int getIdCategoria() {
+        return idCategoria;
+    }
+
     public double getPreco_venda() {
         return preco_venda;
+    }
+
+    public void setIdCategoria(int idCategoria) {
+        this.idCategoria = idCategoria;
     }
 
     public void setPreco_venda(double preco_venda) {

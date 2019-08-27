@@ -1,5 +1,6 @@
 package View;
 
+import Controller.CategoriaController;
 import Controller.ProdutoController;
 import java.util.ArrayList;
 import javax.swing.JFormattedTextField;
@@ -15,6 +16,8 @@ public class CadastrarProduto extends javax.swing.JFrame {
      * Creates new form cadastrarProduto
      */
     int numero;
+    
+    
     
     public CadastrarProduto() {
         initComponents();
@@ -405,6 +408,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
                         , Double.parseDouble(txtValorCompra.getText().replace(",", "."))
                         , Double.parseDouble(txtValorVenda.getText().replace(",", "."))
                         , Integer.parseInt(txtQuantidade.getText())
+                        , CategoriaController.Pesquisar(cboCategoriaProduto.getSelectedItem().toString())
                         , chkDisponivel.isSelected()
                         //,cboCategoriaProduto.getSelectedItem().toString()
                     )
@@ -435,6 +439,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
                         ,txtDescricaoProduto.getText()
                         , Double.parseDouble(txtValorCompra.getText().replace(",", "."))
                         , Double.parseDouble(txtValorVenda.getText().replace(",", "."))
+                        , CategoriaController.Pesquisar(cboCategoriaProduto.getSelectedItem().toString())
                         , Integer.parseInt(txtQuantidade.getText())
                         , chkDisponivel.isSelected()
                     )
