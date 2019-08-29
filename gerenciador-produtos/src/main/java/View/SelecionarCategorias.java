@@ -5,10 +5,12 @@
  */
 package View;
 
-import Controller.ProdutoController;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import Controller.CategoriaController;
+import Controller.CategoriaProdutoController;
+import Model.Categoria;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,6 +18,7 @@ import java.util.logging.Logger;
  */
 public class SelecionarCategorias extends javax.swing.JFrame {
 
+    int produtoID;
     /**
      * Creates new form SelecionarCategorias
      */
@@ -29,7 +32,43 @@ public class SelecionarCategorias extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         
         txtCodigoCadProduto.setText(nome);
-    }
+        
+        produtoID = codigoProduto;
+        //Peço ao controller resgatar os clientes do banco de dados
+        ArrayList<Categoria> linhasCategoria = CategoriaController.PesquisarTodos();
+        ArrayList<Categoria> linhasCategoriaProduto = CategoriaProdutoController.Pesquisar(codigoProduto);
+        
+        DefaultTableModel tmProdutos = new DefaultTableModel(){
+            @Override
+            public Class getColumnClass(int column) {
+                switch (column) {
+                    case 0:
+                        return Boolean.class;
+                    case 1:
+                        return String.class;
+                    case 2:
+                        return String.class;
+                }
+                return null;
+            }
+        };
+        tmProdutos.addColumn("Selecione");
+        tmProdutos.addColumn("ID");
+        tmProdutos.addColumn("Categoria");
+        tblProdutoCategoria.setModel(tmProdutos);
+        
+        for(Categoria c:linhasCategoria)
+        {
+            boolean selected = false;
+            if(linhasCategoriaProduto != null){
+                for(Categoria cat: linhasCategoriaProduto){
+                    if(cat.getId() == c.getId()) selected = true;
+                }
+            }
+            tmProdutos.addRow(new Object[]{selected,c.getId(),c.getNome()});
+            }
+        }
+ 
 
 
     /**
@@ -91,6 +130,7 @@ public class SelecionarCategorias extends javax.swing.JFrame {
         lblCodigoCadProduto.setText("Produto:");
 
         txtCodigoCadProduto.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtCodigoCadProduto.setEnabled(false);
         txtCodigoCadProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCodigoCadProdutoActionPerformed(evt);
@@ -144,7 +184,20 @@ public class SelecionarCategorias extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarProduto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarProduto1ActionPerformed
-        // TODO add your handling code here:
+        ArrayList<Categoria> cat = new ArrayList<>();
+        for(int i=0; i < tblProdutoCategoria.getRowCount(); i++){
+            if(true == (boolean) tblProdutoCategoria.getValueAt(i,0)){
+                cat.add(new Categoria(Integer.parseInt(tblProdutoCategoria.getValueAt(i,1).toString()),tblProdutoCategoria.getValueAt(i,2).toString()));
+            }
+        }
+        if(!CategoriaProdutoController.Salvar(cat,produtoID)){
+            JOptionPane.showMessageDialog(null,"Falha ao cadastrar produto!");
+            return;
+        }
+        
+        AtualizarExcluirProduto form2 = new AtualizarExcluirProduto();  
+        form2.setVisible(true);  
+        dispose();
     }//GEN-LAST:event_btnSalvarProduto1ActionPerformed
 
     private void txtCodigoCadProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoCadProdutoActionPerformed
@@ -152,7 +205,7 @@ public class SelecionarCategorias extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCodigoCadProdutoActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-         AtualizarExcluirProduto form2 = new AtualizarExcluirProduto();  
+        AtualizarExcluirProduto form2 = new AtualizarExcluirProduto();  
         form2.setVisible(true);  
         dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed

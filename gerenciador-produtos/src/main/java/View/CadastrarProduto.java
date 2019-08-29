@@ -409,13 +409,13 @@ public class CadastrarProduto extends javax.swing.JFrame {
                 )
                 {
                     JOptionPane.showMessageDialog(null,"Produto cadastrado com sucesso!");
-                    YesNoOption("Deseja salvar mais produtos?");
+                    numero = YesNoOption("Deseja salvar mais produtos?");
                     if(numero == 0){
-                    CadastrarProduto form2 = new CadastrarProduto();
-                    form2.setVisible(true);
+                        CadastrarProduto form2 = new CadastrarProduto();
+                        form2.setVisible(true);
                     }else{
-                    AtualizarExcluirProduto form2 = new AtualizarExcluirProduto();  
-                    form2.setVisible(true);
+                        AtualizarExcluirProduto form2 = new AtualizarExcluirProduto();  
+                        form2.setVisible(true);
                     }
                     
            dispose();

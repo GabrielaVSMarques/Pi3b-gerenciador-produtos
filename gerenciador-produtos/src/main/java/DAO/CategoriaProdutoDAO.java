@@ -6,11 +6,13 @@
 package DAO;
 
 import Model.Categoria;
+import Model.Produto;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 /**
@@ -23,7 +25,7 @@ public class CategoriaProdutoDAO {
     private static final String BASEDADOS = "PRODUTOBD";
     private static final String PORTA = "3306";
     private static final String LOGIN = "root";
-    private static final String SENHA = "root";
+    private static final String SENHA = "121296Pk!";
     private static String url = "";
     private static Connection conexao;
     
@@ -47,9 +49,9 @@ public class CategoriaProdutoDAO {
             
             ArrayList<Categoria> categorias = new ArrayList<Categoria>();
             while (rs.next()) {
-               categorias.add(new Categoria(rs.getInt("ID"),CategoriaDAO.pesquisarPorId(rs.getInt("ID"))));
+               categorias.add(new Categoria(rs.getInt("ID_CATEGORIA"),CategoriaDAO.pesquisarPorId(rs.getInt("ID_CATEGORIA"))));
             }
-
+            return categorias;
         } catch (ClassNotFoundException e) {
             System.out.println(e.getMessage());
         } catch (SQLException ex) {
@@ -63,4 +65,33 @@ public class CategoriaProdutoDAO {
         }
         return null;
     }
+    
+    public static boolean salvar(ArrayList<Categoria> cat, int prod) {
+
+        try {
+            conexao = conectaBanco();
+            PreparedStatement comando = conexao.prepareStatement("DELETE FROM PRODUTO_CATEGORIA WHERE ID_PRODUTO = ? ;");
+            comando.setInt(1, prod);
+            comando.executeUpdate();
+            
+            for(Categoria c: cat){
+                comando = conexao.prepareStatement("INSERT INTO PRODUTO_CATEGORIA(ID_PRODUTO, ID_CATEGORIA) VALUES(?,?);");
+                comando.setInt(1, prod);
+                comando.setInt(2, c.getId());
+                comando.executeUpdate();
+            }
+            return true;
+        } catch (SQLException ex) {
+            System.out.print(ex.getMessage());
+            return false;
+        } finally {
+            try {
+                conexao.close();
+            } catch (SQLException ex) {
+                System.out.print(ex.getMessage());
+                return false;
+            }
+        }
+    }    
+    
 }

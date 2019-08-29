@@ -24,7 +24,7 @@ public class CategoriaDAO {
     private static final String BASEDADOS = "PRODUTOBD";
     private static final String PORTA = "3306";
     private static final String LOGIN = "root";
-    private static final String SENHA = "root";
+    private static final String SENHA = "121296Pk!";
     private static String url = "";
     private static Connection conexao;
     
@@ -67,7 +67,7 @@ public class CategoriaDAO {
         try {
             Class.forName(DRIVER);
             conexao = conectaBanco();
-            PreparedStatement comando = conexao.prepareStatement("SELECT ID FROM CATEGORIA WHERE ID = ?;");
+            PreparedStatement comando = conexao.prepareStatement("SELECT * FROM CATEGORIA WHERE ID = ?;");
             comando.setInt(1, p);
             
             ResultSet rs = comando.executeQuery();

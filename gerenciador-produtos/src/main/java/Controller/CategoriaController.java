@@ -6,14 +6,19 @@
 package Controller;
 
 import DAO.CategoriaDAO;
+import Model.Categoria;
+import java.util.ArrayList;
 
 /**
  *
  * @author paulobelfi
  */
 public class CategoriaController {
-        public static int Pesquisar(String nome) {
+    public static int Pesquisar(String nome) {
            return CategoriaDAO.pesquisar(nome);
     }
     
+    public static ArrayList<Categoria> PesquisarTodos() {
+           return CategoriaDAO.pesquisar();
+    }
 }
