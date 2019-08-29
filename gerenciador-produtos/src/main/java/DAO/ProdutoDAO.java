@@ -21,7 +21,7 @@ public class ProdutoDAO {
     private static final String BASEDADOS = "PRODUTOBD";
     private static final String PORTA = "3306";
     private static final String LOGIN = "root";
-    private static final String SENHA = "121296Pk!";
+    private static final String SENHA = "root";
     private static String url = "";
     private static Connection conexao;
     
@@ -36,10 +36,10 @@ public class ProdutoDAO {
     public static boolean salvar(Produto p) {
 
         boolean retorno = false;
-
+        int lastID = 0;
         try {
             conexao = conectaBanco();
-            PreparedStatement comando = conexao.prepareStatement("INSERT INTO PRODUTO(NOME,DESCRICAO,PRECO_COMPRA,PRECO_VENDA,QUANTIDADE,DISPONIVEL,DT_CADASTRO)VALUES(?, ?, ?, ?, ?, ?,?);");
+            PreparedStatement comando = conexao.prepareStatement("INSERT INTO PRODUTO(NOME,DESCRICAO,PRECO_COMPRA,PRECO_VENDA,QUANTIDADE,DISPONIVEL,DT_CADASTRO)VALUES(?, ?, ?, ?, ?, ?,?);",Statement.RETURN_GENERATED_KEYS);
             comando.setString(1, p.getNome());
             comando.setString(2, p.getDescricao());
             comando.setDouble(3, p.getPreco_compra());
@@ -49,12 +49,18 @@ public class ProdutoDAO {
             comando.setTimestamp(7, p.getDt_cadastro());
 
             int linhasAfetadas = comando.executeUpdate();
+            
+            ResultSet rs = comando.getGeneratedKeys();
+            if (rs.next()){
+                lastID=rs.getInt(1);
+            }
+            
             if (linhasAfetadas > 0) {
                 retorno = true;
             } else {
-                retorno = false;
+                
             }
-
+            
         } catch (SQLException ex) {
             System.out.print(ex.getMessage());
             retorno = false;

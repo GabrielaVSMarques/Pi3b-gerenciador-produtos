@@ -2,7 +2,11 @@ package View;
 
 import Controller.CategoriaController;
 import Controller.ProdutoController;
+import Model.Produto;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -34,6 +38,21 @@ public class CadastrarProduto extends javax.swing.JFrame {
         
         this.setLocationRelativeTo(null);
         DesabilitarFormulario();
+        try {
+            ArrayList<Produto> produtos =  ProdutoController.PesquisarPorID(codigo);
+            
+            
+        txtCodigoCadProduto.setText(Integer.toString(codigo));
+        txtDescricaoProduto.setText(produtos.get(0).getDescricao());
+        txtQuantidade.setText(Integer.toString(produtos.get(0).getQuantidade()));
+        txtNomeProduto.setText(produtos.get(0).getNome());
+        txtValorCompra.setText(Double.toString(produtos.get(0).getPreco_compra()));
+        txtValorVenda.setText(Double.toString(produtos.get(0).getPreco_venda()));
+        chkDisponivel.setSelected(produtos.get(0).getDisponivel());
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(CadastrarProduto.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void LoadTable(){
@@ -69,7 +88,6 @@ public class CadastrarProduto extends javax.swing.JFrame {
         txtValorCompra.setText("");
         txtValorVenda.setText("");
         
-        cboCategoriaProduto.setSelectedIndex(0);
     }
     
     private boolean ValidarFormulario() {
@@ -131,9 +149,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
         pnlCadastrarPr = new javax.swing.JPanel();
         lblCodigoCadProduto = new javax.swing.JLabel();
         lblValorUnitario = new javax.swing.JLabel();
-        lblCategoria = new javax.swing.JLabel();
         txtCodigoCadProduto = new javax.swing.JTextField();
-        cboCategoriaProduto = new javax.swing.JComboBox<String>();
         lblQuantidade = new javax.swing.JLabel();
         txtQuantidade = new javax.swing.JTextField();
         lblDescricao = new javax.swing.JLabel();
@@ -167,7 +183,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
             }
         });
 
-        pnlCadastrarPr.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastrar Produto", 0, 0, new java.awt.Font("Arial", 1, 14))); // NOI18N
+        pnlCadastrarPr.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastrar Produto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 14))); // NOI18N
 
         lblCodigoCadProduto.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         lblCodigoCadProduto.setText("Código:");
@@ -175,21 +191,10 @@ public class CadastrarProduto extends javax.swing.JFrame {
         lblValorUnitario.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         lblValorUnitario.setText("Valor de compra");
 
-        lblCategoria.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        lblCategoria.setText("Categoria:");
-
         txtCodigoCadProduto.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtCodigoCadProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCodigoCadProdutoActionPerformed(evt);
-            }
-        });
-
-        cboCategoriaProduto.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        cboCategoriaProduto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Escolha uma categoria", "Meninas", "Meninos", "Colecionáveis", "Eletrônicos", "Pelúcias", "Tabuleiro", " ", " ", " " }));
-        cboCategoriaProduto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboCategoriaProdutoActionPerformed(evt);
             }
         });
 
@@ -284,18 +289,12 @@ public class CadastrarProduto extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtValorCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(53, 53, 53)
-                        .addGroup(pnlCadastrarPrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlCadastrarPrLayout.createSequentialGroup()
-                                .addComponent(lblCategoria)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cboCategoriaProduto, 0, 268, Short.MAX_VALUE))
-                            .addGroup(pnlCadastrarPrLayout.createSequentialGroup()
-                                .addComponent(lblValorUnitario1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtValorVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(chkDisponivel)
-                                .addGap(25, 25, 25)))))
+                        .addComponent(lblValorUnitario1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtValorVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                        .addComponent(chkDisponivel)
+                        .addGap(25, 25, 25)))
                 .addContainerGap())
         );
         pnlCadastrarPrLayout.setVerticalGroup(
@@ -314,13 +313,9 @@ public class CadastrarProduto extends javax.swing.JFrame {
                     .addComponent(lblDescricao)
                     .addComponent(txtDescricaoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlCadastrarPrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlCadastrarPrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lblCategoria)
-                        .addComponent(cboCategoriaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlCadastrarPrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblQuantidade)))
+                .addGroup(pnlCadastrarPrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblQuantidade))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(pnlCadastrarPrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlCadastrarPrLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -408,7 +403,6 @@ public class CadastrarProduto extends javax.swing.JFrame {
                         , Double.parseDouble(txtValorCompra.getText().replace(",", "."))
                         , Double.parseDouble(txtValorVenda.getText().replace(",", "."))
                         , Integer.parseInt(txtQuantidade.getText())
-                        , CategoriaController.Pesquisar(cboCategoriaProduto.getSelectedItem().toString())
                         , chkDisponivel.isSelected()
                         //,cboCategoriaProduto.getSelectedItem().toString()
                     )
@@ -439,7 +433,6 @@ public class CadastrarProduto extends javax.swing.JFrame {
                         ,txtDescricaoProduto.getText()
                         , Double.parseDouble(txtValorCompra.getText().replace(",", "."))
                         , Double.parseDouble(txtValorVenda.getText().replace(",", "."))
-                        , CategoriaController.Pesquisar(cboCategoriaProduto.getSelectedItem().toString())
                         , Integer.parseInt(txtQuantidade.getText())
                         , chkDisponivel.isSelected()
                     )
@@ -477,10 +470,6 @@ public class CadastrarProduto extends javax.swing.JFrame {
     private void txtCodigoCadProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoCadProdutoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodigoCadProdutoActionPerformed
-
-    private void cboCategoriaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboCategoriaProdutoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cboCategoriaProdutoActionPerformed
 
     private void txtNomeProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeProdutoActionPerformed
         // TODO add your handling code here:
@@ -536,9 +525,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelarProduto1;
     private javax.swing.JButton btnLimparProduto;
     private javax.swing.JButton btnSalvarProduto;
-    private javax.swing.JComboBox<String> cboCategoriaProduto;
     private javax.swing.JCheckBox chkDisponivel;
-    private javax.swing.JLabel lblCategoria;
     private javax.swing.JLabel lblCodigoCadProduto;
     private javax.swing.JLabel lblCodigoCadProduto1;
     private javax.swing.JLabel lblDescricao;

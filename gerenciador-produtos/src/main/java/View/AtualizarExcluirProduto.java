@@ -104,6 +104,7 @@ public class AtualizarExcluirProduto extends javax.swing.JFrame {
         btnNovoProduto = new javax.swing.JButton();
         btnExcluirProduto = new javax.swing.JButton();
         btnAtulizarProduto = new javax.swing.JButton();
+        btnExcluirProduto1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProdutos = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -132,7 +133,7 @@ public class AtualizarExcluirProduto extends javax.swing.JFrame {
         jLabel3.setText("Categoria:");
 
         JcboCategoria.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        JcboCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Escolha uma categoria", "Meninas", "Meninos", "Colecionáveis", "Eletrônicos", "Pelúcias", "Tabuleiro", " ", " " }));
+        JcboCategoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Escolha uma categoria", "Categoria Cinco", "Categoria Dois", "Categoria Quatro", "Categoria Três", "Categoria Um" }));
         JcboCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JcboCategoriaActionPerformed(evt);
@@ -150,7 +151,6 @@ public class AtualizarExcluirProduto extends javax.swing.JFrame {
 
         btnLimparProduto1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnLimparProduto1.setText("Pesquisar");
-        btnLimparProduto1.setActionCommand("Pesquisar");
         btnLimparProduto1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         btnLimparProduto1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -177,10 +177,10 @@ public class AtualizarExcluirProduto extends javax.swing.JFrame {
                         .addComponent(JcboCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtProduto))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnLimparProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnLimparProduto1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(111, 111, 111))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnLimparProduto)
+                    .addComponent(btnLimparProduto1))
+                .addGap(93, 93, 93))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,8 +202,6 @@ public class AtualizarExcluirProduto extends javax.swing.JFrame {
                 .addComponent(btnLimparProduto)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
-
-        btnLimparProduto1.getAccessibleContext().setAccessibleName("Pesquisar");
 
         jPanel4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 204), 1, true));
 
@@ -235,6 +233,15 @@ public class AtualizarExcluirProduto extends javax.swing.JFrame {
             }
         });
 
+        btnExcluirProduto1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnExcluirProduto1.setText("Selecionar Categorias");
+        btnExcluirProduto1.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnExcluirProduto1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirProduto1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -242,9 +249,10 @@ public class AtualizarExcluirProduto extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnNovoProduto)
-                    .addComponent(btnAtulizarProduto)
-                    .addComponent(btnExcluirProduto))
+                    .addComponent(btnAtulizarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnExcluirProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnExcluirProduto1)
+                    .addComponent(btnNovoProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
         );
 
@@ -253,13 +261,15 @@ public class AtualizarExcluirProduto extends javax.swing.JFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
+                .addComponent(btnNovoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnAtulizarProduto)
-                .addGap(13, 13, 13)
+                .addGap(18, 18, 18)
                 .addComponent(btnExcluirProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
-                .addComponent(btnNovoProduto)
-                .addGap(63, 63, 63))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
+                .addComponent(btnExcluirProduto1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
         );
 
         jPanel4Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnAtulizarProduto, btnExcluirProduto});
@@ -433,6 +443,10 @@ public class AtualizarExcluirProduto extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnNovoProdutoActionPerformed
 
+    private void btnExcluirProduto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirProduto1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExcluirProduto1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -478,6 +492,7 @@ public class AtualizarExcluirProduto extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> JcboCategoria;
     private javax.swing.JButton btnAtulizarProduto;
     private javax.swing.JButton btnExcluirProduto;
+    private javax.swing.JButton btnExcluirProduto1;
     private javax.swing.JButton btnLimparProduto;
     private javax.swing.JButton btnLimparProduto1;
     private javax.swing.JButton btnNovoProduto;

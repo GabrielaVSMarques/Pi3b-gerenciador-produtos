@@ -13,15 +13,15 @@ import java.util.ArrayList;
  */
 public class ProdutoController {
     
-    public static boolean Salvar(String nome, String descricao, double preco_compra, double preco_venda,int idCategoria, int quantidade, boolean disponivel) {
+    public static boolean Salvar(String nome, String descricao, double preco_compra, double preco_venda, int quantidade, boolean disponivel) {
 
-        Produto p = new Produto(nome, descricao, preco_compra, preco_venda,idCategoria,quantidade,disponivel,new Timestamp(System.currentTimeMillis()));
+        Produto p = new Produto(nome, descricao, preco_compra, preco_venda,quantidade,disponivel,new Timestamp(System.currentTimeMillis()));
         return ProdutoDAO.salvar(p);
     }
     
-    public static boolean Atualizar(int id ,String nomeProduto, String descricaoProduto, double precoCompra, double precoVenda,int idCategoria, int quantidade, boolean disponivel) {
+    public static boolean Atualizar(int id ,String nomeProduto, String descricaoProduto, double precoCompra, double precoVenda, int quantidade, boolean disponivel) {
 
-        Produto p = new Produto(id, nomeProduto, descricaoProduto, precoCompra, precoVenda,idCategoria, quantidade,disponivel);
+        Produto p = new Produto(id, nomeProduto, descricaoProduto, precoCompra, precoVenda, quantidade,disponivel);
         return ProdutoDAO.atualizar(p);
     }
     
@@ -57,6 +57,18 @@ public class ProdutoController {
             });
         }
         return listaProdutos;
+
+    }
+    
+        public static ArrayList<Produto> PesquisarPorID(int idProduto) throws SQLException {
+        
+        Produto p  = new Produto();
+        p.setId(idProduto);
+        //p.set(categoria);
+        
+        ArrayList<Produto> retorno = ProdutoDAO.pesquisar(p);
+        
+        return retorno;
 
     }
     

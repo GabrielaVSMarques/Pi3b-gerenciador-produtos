@@ -5,11 +5,14 @@
  */
 package DAO;
 
+import Model.Categoria;
+import Model.Produto;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -21,7 +24,7 @@ public class CategoriaDAO {
     private static final String BASEDADOS = "PRODUTOBD";
     private static final String PORTA = "3306";
     private static final String LOGIN = "root";
-    private static final String SENHA = "121296Pk!";
+    private static final String SENHA = "root";
     private static String url = "";
     private static Connection conexao;
     
@@ -33,26 +36,85 @@ public class CategoriaDAO {
     }
     
     public static int pesquisar(String p) {
-
-
         try {
             Class.forName(DRIVER);
             conexao = conectaBanco();
-            PreparedStatement comando = conexao.prepareStatement("SELECT ID FROM CATEGORIA WHERE ID = ?;");
+            PreparedStatement comando = conexao.prepareStatement("SELECT ID FROM CATEGORIA WHERE NOME = ?;");
             comando.setString(1, p);
             
             ResultSet rs = comando.executeQuery();
-            return rs.getInt("ID");
+            
+            while (rs.next()) {
+                return rs.getInt("ID");
+            }
 
         } catch (ClassNotFoundException e) {
+            System.out.println(e.getMessage());
         } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         } finally {
             try {
                 conexao.close();
             } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
             }
         }
         return -1;
+    }
+    
+    
+    public static String pesquisarPorId(int p) {
+        try {
+            Class.forName(DRIVER);
+            conexao = conectaBanco();
+            PreparedStatement comando = conexao.prepareStatement("SELECT ID FROM CATEGORIA WHERE ID = ?;");
+            comando.setInt(1, p);
+            
+            ResultSet rs = comando.executeQuery();
+            
+            while (rs.next()) {
+                return rs.getString("NOME");
+            }
+
+        } catch (ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {
+                conexao.close();
+            } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            }
+        }
+        return null;
+    }
+    
+     public static ArrayList<Categoria> pesquisar() {
+        try {
+            Class.forName(DRIVER);
+            conexao = conectaBanco();
+            PreparedStatement comando = conexao.prepareStatement("SELECT * FROM CATEGORIA;");
+            
+            ResultSet rs = comando.executeQuery();
+            
+            ArrayList<Categoria> categorias = new ArrayList<Categoria>();
+            while (rs.next()) {
+               categorias.add(new Categoria(rs.getInt("ID"),rs.getString("NOME")));
+            }
+            return categorias;
+        } catch (ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {
+                conexao.close();
+            } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            }
+        }
+        return null;
     }
     
     
