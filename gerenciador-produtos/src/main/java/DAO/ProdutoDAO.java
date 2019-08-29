@@ -83,15 +83,14 @@ public class ProdutoDAO {
         try {
             Class.forName(DRIVER);
             conexao = conectaBanco();
-            PreparedStatement comando = conexao.prepareStatement("UPDATE PRODUTO SET NOME = ?, DESCRICAO = ?, PRECO_COMPRA = ?, PRECO_VENDA = ?, QUANTIDADE = ?, DISPONIVEL = ?, DT_CADASTRO = ? WHERE ID = ?;");
+            PreparedStatement comando = conexao.prepareStatement("UPDATE PRODUTO SET NOME = ?, DESCRICAO = ?, PRECO_COMPRA = ?, PRECO_VENDA = ?, QUANTIDADE = ?, DISPONIVEL = ? WHERE ID = ?;");
             comando.setString(1, p.getNome());
             comando.setString(2, p.getDescricao());
             comando.setDouble(3, p.getPreco_compra());
             comando.setDouble(4, p.getPreco_venda());
             comando.setInt(5, p.getQuantidade());
             comando.setBoolean(6, p.getDisponivel());
-            comando.setTimestamp(7, p.getDt_cadastro());
-            comando.setInt(8, p.getId());
+            comando.setInt(7, p.getId());
 
             int linhasAfetadas = comando.executeUpdate();
             if (linhasAfetadas > 0) {
@@ -101,13 +100,16 @@ public class ProdutoDAO {
             }
 
         } catch (ClassNotFoundException e) {
+            System.out.print(e.getMessage());
             retorno = true;
         } catch (SQLException ex) {
+            System.out.print(ex.getMessage());
             retorno = false;
         } finally {
             try {
                 conexao.close();
             } catch (SQLException ex) {
+            System.out.print(ex.getMessage());
                 retorno = false;
             }
         }

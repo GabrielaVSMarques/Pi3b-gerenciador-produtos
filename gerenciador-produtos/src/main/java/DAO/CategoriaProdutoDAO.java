@@ -61,6 +61,6 @@ public class CategoriaProdutoDAO {
             System.out.println(ex.getMessage());
             }
         }
-        return -1;
+        return null;
     }
 }

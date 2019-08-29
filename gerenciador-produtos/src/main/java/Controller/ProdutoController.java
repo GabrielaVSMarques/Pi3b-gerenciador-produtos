@@ -77,7 +77,8 @@ public class ProdutoController {
         ArrayList<String[]> listaProdutos = new ArrayList<>();
 
         for (int i = 0; i < p.size(); i++) {
-            listaProdutos.add(new String[]{String.valueOf(p.get(i).getId()),
+            listaProdutos.add(new String[]{
+                String.valueOf(p.get(i).getId()),
                 p.get(i).getDescricao(),
                 String.valueOf(p.get(i).getQuantidade()),
                 String.valueOf(p.get(i).getPreco_venda()),
